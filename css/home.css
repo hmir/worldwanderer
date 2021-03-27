@@ -1,0 +1,65 @@
+body {
+  animation-name: bg;
+  animation-duration: 30s;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease-in;
+  text-align: center;
+}
+
+#name {
+  color: white;
+  font-family: Tahoma, Geneva, sans-serif;
+  font-size: 108px;
+}
+
+@keyframes bg {
+  0% {
+    background-color: #4b6cb7
+  }
+  10% {
+    background-color: #1540a1
+  }
+  20% {
+    background-color: #012a85
+  }
+  30% {
+    background-color: #5184f5
+  }
+  40% {
+    background-color: #6588d6
+  }
+  50% {
+    background-color: #6babbf
+  }
+  60% {
+    background-color: #4094a1
+  }
+  70% {
+    background-color: #4074a1
+  }
+  80% {
+    background-color: #295378
+  }
+  90% {
+    background-color: #2b32ba
+  }
+  100% {
+    background-color: #545be8
+  }
+}
+
+.button {
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+}
+
+#submitButton {
+  border-radius: 10px;
+  background-color: #4CAF50;
+  color: black;
+  border: 2px solid #4CAF50;
+}
+
+#submitButton:hover {
+  background-color: #a0cea1;
+  color: white;
+}
