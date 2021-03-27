@@ -32,6 +32,7 @@
             position: absolute;
             bottom: 0%;
             right: 0%;
+            z-index: 2
         }
     </style>
 </head>
@@ -59,13 +60,13 @@
     </nav>
 
     <div id="street-view">
-        <div id="map" style="height:500px; width:500px; z-index: 2"></div>
+        <div id="map" style="height:256px; width:256px;"></div>
     </div>
-    
+
 
     <!-- Async script executes immediately and must be after any DOM elements used in callback. -->
     <script
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAauCvhdFb61hHGmcOSnzlyHMi5W73__NI&callback=initMap&libraries=&v=weekly"
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAauCvhdFb61hHGmcOSnzlyHMi5W73__NI&callback=initialize&libraries=&v=weekly"
         async></script>
 </body>
 

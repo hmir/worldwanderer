@@ -1,3 +1,6 @@
+let panorama;
+
+
 function randomLatLng() {
   return { lat: Math.random() * 90 - 30, // restrict longitude to between -30 and 60 to avoid poles
            lng: Math.random() * 280 - 125 }; // restrict latitude to between -125 and 155 to avoid pacific ocean
@@ -28,23 +31,36 @@ async function setRandomStreetView() {
   });
 }
 
-function initMap() {
+function initialize() {
   const fenway = { lat: 42.345573, lng: -71.098326 };
   const map = new google.maps.Map(document.getElementById("map"), {
     center: fenway,
     zoom: 14,
   });
-  const panorama = new google.maps.StreetViewPanorama(
+  panorama = new google.maps.StreetViewPanorama(
     document.getElementById("street-view"),
     {
       position: fenway,
-      pov: {
-        heading: 34,
-        pitch: 10,
-      },
+      pov: { heading: 34, pitch: 10 },
+      zoom: 1,
     }
   );
-  map.setStreetView(panorama);
+  map.addListener("click", (e) => {
+    placeMarkerAndPanTo(e.latLng, map);
+  });
+}
+
+var marker;
+function placeMarkerAndPanTo(latLng, map) {
+  if (marker) {
+    marker.setPosition(latLng);
+  } else {
+    marker = new google.maps.Marker({
+      position: latLng,
+      map: map,
+    });
+    map.panTo(latLng);
+  }
 }
 
 console.log("setting timeout");
