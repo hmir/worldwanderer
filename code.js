@@ -72,5 +72,18 @@ async function setRandomStreetView() {
   });
 }
 
+var marker;
+function placeMarkerAndPanTo(latLng, map) {
+  if (marker) {
+    marker.setPosition(latLng);
+  } else {
+    marker = new google.maps.Marker({
+    position: latLng,
+    map: map,
+  });
+  map.panTo(latLng);
+  }
+}
+
 console.log("setting timeout");
 setTimeout(()=> { setRandomStreetView().await }, 2000);
