@@ -3,11 +3,16 @@
 
 <head>
     <title>Street View Containers</title>
+    <script
+  src="https://code.jquery.com/jquery-3.6.0.min.js"
+  integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+  crossorigin="anonymous"></script>
     <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
     <script src="code.js"></script>
     <!-- -- -->
     <style type="text/css">
@@ -29,44 +34,6 @@
             right: 0%;
         }
     </style>
-    <script>
-        let panorama;
-
-        function initialize() {
-            const fenway = { lat: 42.345573, lng: -71.098326 };
-            const map = new google.maps.Map(document.getElementById("map"), {
-                center: fenway,
-                zoom: 14,
-            });
-            panorama = new google.maps.StreetViewPanorama(
-                document.getElementById("street-view"),
-                {
-                    position: fenway,
-                    pov: { heading: 34, pitch: 10 },
-                    zoom: 1,
-                }
-            );
-        }
-
-
-        // function initialize2() {
-        //     const fenway = { lat: 42.345573, lng: -71.098326 };
-        //     const map = new google.maps.Map(document.getElementById("map"), {
-        //         center: fenway,
-        //         zoom: 14,
-        //     });
-        //     panorama = new google.maps.StreetViewPanorama(
-        //         document.getElementById("pano"),
-        //         {
-        //             position: fenway,
-        //             pov: {heading: 34, pitch: 10,},
-        //             zoom: 1,
-        //         }
-        //     );
-        //     // map.setStreetView(panorama);
-        // }
-
-    </script>
 </head>
 
 <body>
@@ -92,13 +59,13 @@
     </nav>
 
     <div id="street-view">
-        <div id="map" style="height:500px; width:500px"></div>
+        <div id="map" style="height:500px; width:500px; z-index: 2"></div>
     </div>
     
 
     <!-- Async script executes immediately and must be after any DOM elements used in callback. -->
     <script
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAauCvhdFb61hHGmcOSnzlyHMi5W73__NI&callback=initialize&libraries=&v=weekly"
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAauCvhdFb61hHGmcOSnzlyHMi5W73__NI&callback=initMap&libraries=&v=weekly"
         async></script>
 </body>
 
