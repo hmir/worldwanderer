@@ -1,5 +1,5 @@
 var panorama;
-var latLng; //fenway
+var latLng;
 
 function randomLatLng() {
   return { lat: Math.random() * 90 - 30, // restrict longitude to between -30 and 60 to avoid poles

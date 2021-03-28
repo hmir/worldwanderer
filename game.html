@@ -25,10 +25,10 @@
 
         #street-view {
             position: relative;
-            height: 93%;
+            height: 90%;
         }
 
-        #map {
+        #map-container {
             position: absolute;
             top: 0%;
             right: 0%;
@@ -53,14 +53,14 @@
                     <a class="nav-link" href="#">[placeholder]</a>
                 </li>
             </ul>
-            <span class="navbar-text">
-                <a style="color:white; background-color: #9df1a0;" class="btn btn-default button" id="submitButton" onclick="computeDistance()">Submit</a>
-            </span>
         </div>
     </nav>
 
     <div id="street-view">
-        <div id="map" style="height:256px; width:256px;"></div>
+        <div id="map-container" style="margin:10px; height:300px; width:300px">
+            <div id="map" style="height:250px; width:300px;"></div>
+            <div id="guess-button" style="margin-top:10px; height:40px; width:300px; color:white; background-color: #9df1a0;"> <a class="btn btn-default button" onclick="computeDistance()"> <b> GUESS </b> </a> </div>
+        </div>
     </div>
 
 
