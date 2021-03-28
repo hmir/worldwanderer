@@ -86,7 +86,6 @@ async function setRandomStreetView(outdoor) {
   // sustainability challenge
   if (!outdoor) {
     let cookie = document.cookie;
-    console.log(document.cookie);
     if (cookie.length == 0) {
       document.cookie = '0';
       curChallenge = 0;
@@ -100,13 +99,11 @@ async function setRandomStreetView(outdoor) {
       document.cookie = '0';
       curChallenge = 0;
     }
-    console.log('chalnum', curChallenge);
     coords = sustainabilityChallengeLocations[curChallenge].location;
     $('#info').css('display', 'inline');
     $('#info').text(sustainabilityChallengeLocations[curChallenge].question);
   }
 
-  console.log(coords);
   let req = {location: coords, preference: 'nearest', radius: 400000, source: outdoor ? 'outdoor' : 'default'};
   let sv = new google.maps.StreetViewService();
 
@@ -114,7 +111,6 @@ async function setRandomStreetView(outdoor) {
     let results = await sv.getPanorama(req);
 
     let latLng = results.data.location.latLng;
-    console.log('ll ', latLng.lat(), latLng.lng());
 
     panorama = new google.maps.StreetViewPanorama(
       document.getElementById("street-view"),
@@ -170,7 +166,6 @@ function placeMarkerAndPanTo(latLng, map) {
 
 function computeDistance() {
   var distanceBetween = google.maps.geometry.spherical.computeDistanceBetween(marker.getPosition(), panorama.getPosition());
-  console.log("distancebetween: " + distanceBetween);
   return distanceBetween;
 }
 
