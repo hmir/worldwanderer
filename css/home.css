@@ -4,9 +4,12 @@ body {
 }
 
 #name {
-  color: white;
   font-family: Tahoma, Geneva, sans-serif;
-  font-size: 108px;
+}
+
+#info {
+  color:grey;
+  font-family: Tahoma, Geneva, sans-serif;
 }
 
 .button {

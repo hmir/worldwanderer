@@ -4,8 +4,10 @@ var panorama;
 var latLng;
 
 function randomLatLng() {
-  return { lat: Math.random() * 90 - 30, // restrict longitude to between -30 and 60 to avoid poles
-           lng: Math.random() * 280 - 125 }; // restrict latitude to between -125 and 155 to avoid pacific ocean
+  return {
+    lat: Math.random() * 90 - 30, // restrict longitude to between -30 and 60 to avoid poles
+    lng: Math.random() * 280 - 125
+  }; // restrict latitude to between -125 and 155 to avoid pacific ocean
 }
 
 let guessMarker;
@@ -14,7 +16,7 @@ function markResultsMap(guessLatLng, targetLatLng) {
   let middle = google.maps.geometry.spherical.interpolate(guessLatLng, targetLatLng, 0.5);
   let dist = google.maps.geometry.spherical.computeDistanceBetween(guessLatLng, targetLatLng);
 
-  let zoom = Math.max(2, Math.min(Math.floor((1/dist) * 10000000), 6));
+  let zoom = Math.max(2, Math.min(Math.floor((1 / dist) * 10000000), 6));
 
   const map = new google.maps.Map(document.getElementById("street-view"), {
     center: middle,
@@ -50,12 +52,12 @@ async function setRandomStreetView() {
   console.log("making req");
   let coords = randomLatLng();
   console.log(coords);
-  let req = {location: coords, preference: 'nearest', radius: 400000, source: 'outdoor'};
+  let req = { location: coords, preference: 'nearest', radius: 400000, source: 'outdoor' };
   let sv = new google.maps.StreetViewService();
-  
+
   try {
-    let results = await sv.getPanorama(req);    
-    
+    let results = await sv.getPanorama(req);
+
     let latLng = results.data.location.latLng;
     console.log('ll ', latLng.lat(), latLng.lng());
 
@@ -74,7 +76,7 @@ async function setRandomStreetView() {
 
 async function initialize() {
   const map = new google.maps.Map(document.getElementById("map"), {
-    center: {lat: 0, lng: 0},
+    center: { lat: 0, lng: 0 },
     zoom: 2,
     disableDefaultUI: true,
   });
@@ -96,11 +98,11 @@ function placeMarkerAndPanTo(latLng, map) {
       map: map,
     });
     map.panTo(latLng);
-    $("#guess-button").animate({'opacity': 1}, 300)
+    $("#guess-button").animate({ 'opacity': 1 }, 300)
   }
 }
 
-function computeDistance(){
+function computeDistance() {
   var distanceBetween = google.maps.geometry.spherical.computeDistanceBetween(marker.getPosition(), panorama.getPosition());
   console.log("distancebetween: " + distanceBetween);
   return distanceBetween;
@@ -110,9 +112,9 @@ function makeGuess() {
   let dist = computeDistance();
   markResultsMap(marker.getPosition(), panorama.getPosition());
   let progress = Math.max(DISTANCE_THRESHOLD - dist, 0);
-  let ratio = progress/DISTANCE_THRESHOLD;
+  let ratio = progress / DISTANCE_THRESHOLD;
   $("#progress-bar-container").css('display', "inline");
   $("#progress-bar").attr('aria-valuenow', progress).css('width', Math.max(1, ratio * 100) + "%");
-  $("#progress-text").text('You were ' + Math.ceil(dist/1000) + ' km away... Score: ' + Math.ceil(ratio * 100) + '%');
+  $("#progress-text").text('You were ' + Math.ceil(dist / 1000) + ' km away... Score: ' + Math.ceil(ratio * 100) + '%');
   $("#play-again").text('Hit here to play again!');
 }
