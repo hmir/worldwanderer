@@ -14,9 +14,11 @@ function markResultsMap(guessLatLng, targetLatLng) {
   let middle = google.maps.geometry.spherical.interpolate(guessLatLng, targetLatLng, 0.5);
   let dist = google.maps.geometry.spherical.computeDistanceBetween(guessLatLng, targetLatLng);
 
+  let zoom = Math.max(2, Math.min(Math.floor((1/dist) * 10000000), 6));
+
   const map = new google.maps.Map(document.getElementById("street-view"), {
     center: middle,
-    zoom: Math.min(Math.floor((1/dist) * 30000000), 10),
+    zoom: zoom,
     disableDefaultUI: true,
   });
 
@@ -108,16 +110,9 @@ function makeGuess() {
   let dist = computeDistance();
   markResultsMap(marker.getPosition(), panorama.getPosition());
   let progress = Math.max(DISTANCE_THRESHOLD - dist, 0);
-  console.log('dist', dist);
-  console.log('rat', progress/DISTANCE_THRESHOLD);
   let ratio = progress/DISTANCE_THRESHOLD;
   $("#progress-bar-container").css('display', "inline");
   $("#progress-bar").attr('aria-valuenow', progress).css('width', Math.max(1, ratio * 100) + "%");
   $("#progress-text").text('You were ' + Math.ceil(dist/1000) + ' km away... Score: ' + Math.ceil(ratio * 100) + '%');
   $("#play-again").text('Hit here to play again!');
 }
-
-console.log("setting timeout");
-//setTimeout(()=> { setRandomStreetView().await }, 2000);
-
-//setTimeout(()=> { markResultsMap(randomLatLng(), randomLatLng()) }, 2000);
