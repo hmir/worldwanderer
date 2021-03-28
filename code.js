@@ -21,6 +21,7 @@ function markResultsMap(guess, target) {
   const map = new google.maps.Map(document.getElementById("street-view"), {
     center: middle,
     zoom: Math.floor((1/dist) * 30000000),
+    disableDefaultUI: true,
   });
 
   guessMarker = new google.maps.Marker({
@@ -63,7 +64,8 @@ async function setRandomStreetView() {
     panorama = new google.maps.StreetViewPanorama(
       document.getElementById("street-view"),
       {
-        position: latLng
+        position: latLng,
+        disableDefaultUI: true
       }
     );
     return true;
@@ -75,7 +77,8 @@ async function setRandomStreetView() {
 async function initialize() {
   const map = new google.maps.Map(document.getElementById("map"), {
     center: {lat: 0, lng: 0},
-    zoom: 2
+    zoom: 2,
+    disableDefaultUI: true,
   });
 
   map.addListener("click", (e) => {
@@ -98,29 +101,9 @@ function placeMarkerAndPanTo(latLng, map) {
   }
 }
 
-function getMarkerCoords(){
-  var lat = marker.getPosition().lat();
-  var lng = marker.getPosition().lng();
-  return [lat, lng];
-}
-
-function getPanoCoords(){
-  panoPos = [panorama.getPosition().lat(), panorama.getPosition().lng()];
-  return panoPos;
-}
-
 function computeDistance(){
-  markerCoords = getMarkerCoords();
-  markerLat = markerCoords[0];
-  markerLng = markerCoords[1];
-  markerCoords = new google.maps.LatLng(markerLat, markerLng)
-  
-  panoCoords = getPanoCoords();
-  panoLat = panoCoords[0];
-  panoLng = panoCoords[1];
-  panoCoords = new google.maps.LatLng(panoLat, panoLng)
   var distanceBetween = google.maps.geometry.spherical.computeDistanceBetween(marker.getPosition(), panorama.getPosition());
-  console.log(distanceBetween);
+  console.log("distancebetween: " + distanceBetween);
   return distanceBetween;
 }
 
