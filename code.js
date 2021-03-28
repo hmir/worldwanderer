@@ -8,6 +8,7 @@ let curChallenge;
 const sustainabilityChallengeLocations = [
   {
     name: 'The Great Barrier Reef',
+    // Source https://en.wikipedia.org/wiki/Great_Barrier_Reef
     question: "The ___ is the world's largest coral reef system composed of over 2,900 individual reefs and 900 islands stretching for over 2,300 kilometres. This reef structure is composed of and built by billions of tiny organisms, known as coral polyps. According to a study published in October 2012 by the Proceedings of the National Academy of Sciences, the reef has lost more than half its coral cover since 1985, a finding reaffirmed by a 2020 study which found over half of the reef's coral cover to have been lost between 1995 and 2017, with the effects of a widespread 2020 bleaching event not yet quantified",
     location: {lat: -23.3071842, lng: 151.9144542},
   },
@@ -18,17 +19,20 @@ const sustainabilityChallengeLocations = [
   // },
   {
     name: "The Hudson River",
+    // Source: https://en.wikipedia.org/wiki/Hudson_River
     question: "The ___ is a 315-mile (507 km) river that flows from north to south primarily through eastern ___. The ___'s sediments contain a significant array of pollutants, accumulated over decades from industrial waste discharges, sewage treatment plants, and urban runoff. The most discussed pollution of the ___ is General Electric's contamination of the river with polychlorinated biphenyls (PCBs) between 1947 and 1977. This pollution caused a range of harmful effects to wildlife and people who ate fish from the river or drank the water.",
     location: {lat: 40.8358816, lng: -74.01432}
   },
   {
     name: "Beijing",
+    // Source: https://en.wikipedia.org/wiki/Beijing
     question: "This city, with a population of over 21 million residents, is  one of the world's leading centers for culture, diplomacy and politics, business and economics, education, language, and science and technology. ___ has a long history of environmental problems. Because of the combined factors of urbanization and pollution caused by burning of fossil fuel, ___ is often affected by serious environmental problems, which lead to health issues of many inhabitants. In 2013 heavy smog struck ___ and most parts of ___, impacting a total of 600 million people. After this 'pollution shock' the government of ____ announced measures to reduce air pollution.",
     location: {lat: 39.9682234, lng: 116.4770841}
     
   }, 
   {
     name: "Central Park, NY",
+    //   Source: https://www.centralparknyc.org/articles/how-central-park-cools-the-heat-island
     question: "____ 18,000 trees and 843 acres of trails, lawns, and gardens offer some much-needed reprieve when it's area turns into what's called an 'urban heat island.' More concrete and less tree cover exacerbates this difference in temperature, which can vary by 16 degrees depending on location. This is because hard, impervious surfaces (like paved roadways and empty rooftops) absorb, magnify, and slowly release heat throughout the course of a day, creating a warming cycle on city streets.",
     location: {lat: 40.7695199, lng: -73.9724093}
   }
