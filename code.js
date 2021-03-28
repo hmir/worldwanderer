@@ -1,5 +1,5 @@
-let panorama;
-
+var panorama;
+var latLng; //fenway
 
 function randomLatLng() {
   return { lat: Math.random() * 90 - 30, // restrict longitude to between -30 and 60 to avoid poles
@@ -59,10 +59,10 @@ async function setRandomStreetView() {
       return;
     }
 
-    let latLng = data.location.latLng;
+    latLng = data.location.latLng;
     console.log('ll ', latLng)
 
-    const panorama = new google.maps.StreetViewPanorama(
+    panorama = new google.maps.StreetViewPanorama(
       document.getElementById("street-view"),
       {
         position: latLng
@@ -101,6 +101,32 @@ function placeMarkerAndPanTo(latLng, map) {
     });
     map.panTo(latLng);
   }
+}
+
+function getMarkerCoords(){
+  var lat = marker.getPosition().lat();
+  var lng = marker.getPosition().lng();
+  return [lat, lng];
+}
+
+function getPanoCoords(){
+  panoPos = [panorama.getPosition().lat(), panorama.getPosition().lng()];
+  return panoPos;
+}
+
+function computeDistance(){
+  markerCoords = getMarkerCoords();
+  markerLat = markerCoords[0];
+  markerLng = markerCoords[1];
+  markerCoords = new google.maps.LatLng(markerLat, markerLng)
+  
+  panoCoords = getPanoCoords();
+  panoLat = panoCoords[0];
+  panoLng = panoCoords[1];
+  panoCoords = new google.maps.LatLng(panoLat, panoLng)
+  var distanceBetween = google.maps.geometry.spherical.computeDistanceBetween(marker.getPosition(), panorama.getPosition());
+  console.log(distanceBetween);
+  return distanceBetween;
 }
 
 console.log("setting timeout");
