@@ -46,21 +46,19 @@ function markResultsMap(guess, target) {
 
 }
 
+let success = false;
 async function setRandomStreetView() {
   console.log("making req");
   let coords = randomLatLng();
   console.log(coords);
   let req = {location: coords, preference: 'nearest', radius: 400000, source: 'outdoor'};
   let sv = new google.maps.StreetViewService();
-  let pano = sv.getPanorama(req, (data, status) => {
-    console.log(status);
-    if (status != 'OK') {
-      console.log('sadge');
-      return;
-    }
-
-    latLng = data.location.latLng;
-    console.log('ll ', latLng)
+  
+  try {
+    let results = await sv.getPanorama(req);    
+    
+    let latLng = results.data.location.latLng;
+    console.log('ll ', latLng.lat(), latLng.lng());
 
     panorama = new google.maps.StreetViewPanorama(
       document.getElementById("street-view"),
@@ -68,26 +66,23 @@ async function setRandomStreetView() {
         position: latLng
       }
     );
-  });
+    return true;
+  } catch (e) {
+    return false;
+  }
 }
 
-function initialize() {
-  const fenway = { lat: 42.345573, lng: -71.098326 };
+async function initialize() {
   const map = new google.maps.Map(document.getElementById("map"), {
-    center: fenway,
-    zoom: 14,
+    center: {lat: 0, lng: 0},
+    zoom: 2
   });
-  panorama = new google.maps.StreetViewPanorama(
-    document.getElementById("street-view"),
-    {
-      position: fenway,
-      pov: { heading: 34, pitch: 10 },
-      zoom: 1,
-    }
-  );
+
   map.addListener("click", (e) => {
     placeMarkerAndPanTo(e.latLng, map);
   });
+
+  while (await setRandomStreetView() == false);
 }
 
 var marker;
