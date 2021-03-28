@@ -12,12 +12,10 @@ let targetMarker;
 function markResultsMap(guessLatLng, targetLatLng) {
   let middle = google.maps.geometry.spherical.interpolate(guessLatLng, targetLatLng, 0.5);
   let dist = google.maps.geometry.spherical.computeDistanceBetween(guessLatLng, targetLatLng);
-  let zoom = Math.floor((1/dist) * 15500000);
-  console.log('zoom: ', zoom)
 
   const map = new google.maps.Map(document.getElementById("street-view"), {
     center: middle,
-    zoom: Math.floor((1/dist) * 30000000),
+    zoom: Math.min(Math.floor((1/dist) * 30000000), 10),
     disableDefaultUI: true,
   });
 
