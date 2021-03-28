@@ -114,4 +114,5 @@ function makeGuess() {
   $("#progress-bar-container").css('display', "inline");
   $("#progress-bar").attr('aria-valuenow', progress).css('width', Math.max(1, ratio * 100) + "%");
   $("#progress-text").text('You were ' + Math.ceil(dist/1000) + ' km away... Score: ' + Math.ceil(ratio * 100) + '%');
+  $("#play-again").text('Hit here to play again!');
 }
