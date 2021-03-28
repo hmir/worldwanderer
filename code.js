@@ -1,3 +1,5 @@
+const DISTANCE_THRESHOLD = 6_000_000;
+
 var panorama;
 var latLng;
 
@@ -9,18 +11,13 @@ function randomLatLng() {
 
 let guessMarker;
 let targetMarker;
-function markResultsMap(guess, target) {
-  let guessLatLng = new google.maps.LatLng(guess);
-  let targetLatLng = new google.maps.LatLng(target);
-
+function markResultsMap(guessLatLng, targetLatLng) {
   let middle = google.maps.geometry.spherical.interpolate(guessLatLng, targetLatLng, 0.5);
   let dist = google.maps.geometry.spherical.computeDistanceBetween(guessLatLng, targetLatLng);
-  let zoom = Math.floor((1/dist) * 15500000);
-  console.log('zoom: ', zoom)
 
   const map = new google.maps.Map(document.getElementById("street-view"), {
     center: middle,
-    zoom: Math.floor((1/dist) * 30000000),
+    zoom: Math.min(Math.floor((1/dist) * 30000000), 10),
     disableDefaultUI: true,
   });
 
@@ -105,6 +102,18 @@ function computeDistance(){
   var distanceBetween = google.maps.geometry.spherical.computeDistanceBetween(marker.getPosition(), panorama.getPosition());
   console.log("distancebetween: " + distanceBetween);
   return distanceBetween;
+}
+
+function makeGuess() {
+  let dist = computeDistance();
+  markResultsMap(marker.getPosition(), panorama.getPosition());
+  let progress = Math.max(DISTANCE_THRESHOLD - dist, 0);
+  console.log('dist', dist);
+  console.log('rat', progress/DISTANCE_THRESHOLD);
+  let ratio = progress/DISTANCE_THRESHOLD;
+  $("#progress-bar-container").css('display', "inline");
+  $("#progress-bar").attr('aria-valuenow', progress).css('width', Math.max(1, ratio * 100) + "%");
+  $("#progress-text").text('You were ' + Math.ceil(dist/1000) + ' km away... Score: ' + Math.ceil(ratio * 100) + '%');
 }
 
 console.log("setting timeout");
