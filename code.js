@@ -179,7 +179,7 @@ function makeGuess() {
   markResultsMap(marker.getPosition(), panorama.getPosition());
   let progress = Math.max(DISTANCE_THRESHOLD - dist, 0);
   let ratio = progress / DISTANCE_THRESHOLD;
-  $("#progress-bar-container").css('display', "inline");
+  $("#progress-bar-container").css('display', "flex");
   $("#progress-bar").attr('aria-valuenow', progress).css('width', Math.max(1, ratio * 100) + "%");
   if (isSustainabilityChallenge()) {
     document.cookie = curChallenge.toString();
