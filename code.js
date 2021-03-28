@@ -124,7 +124,7 @@ function computeDistance(){
   panoLat = panoCoords[0];
   panoLng = panoCoords[1];
   panoCoords = new google.maps.LatLng(panoLat, panoLng)
-  var distanceBetween = google.maps.geometry.spherical.computeDistanceBetween(markerCoords, panoCoords);
+  var distanceBetween = google.maps.geometry.spherical.computeDistanceBetween(marker.getPosition(), panorama.getPosition());
   console.log(distanceBetween);
   return distanceBetween;
 }
