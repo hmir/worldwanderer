@@ -60,7 +60,7 @@ async function setRandomStreetView() {
     let latLng = results.data.location.latLng;
     console.log('ll ', latLng.lat(), latLng.lng());
 
-    new google.maps.StreetViewPanorama(
+    panorama = new google.maps.StreetViewPanorama(
       document.getElementById("street-view"),
       {
         position: latLng
