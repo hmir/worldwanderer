@@ -9,10 +9,7 @@ function randomLatLng() {
 
 let guessMarker;
 let targetMarker;
-function markResultsMap(guess, target) {
-  let guessLatLng = new google.maps.LatLng(guess);
-  let targetLatLng = new google.maps.LatLng(target);
-
+function markResultsMap(guessLatLng, targetLatLng) {
   let middle = google.maps.geometry.spherical.interpolate(guessLatLng, targetLatLng, 0.5);
   let dist = google.maps.geometry.spherical.computeDistanceBetween(guessLatLng, targetLatLng);
   let zoom = Math.floor((1/dist) * 15500000);
@@ -105,6 +102,11 @@ function computeDistance(){
   var distanceBetween = google.maps.geometry.spherical.computeDistanceBetween(marker.getPosition(), panorama.getPosition());
   console.log("distancebetween: " + distanceBetween);
   return distanceBetween;
+}
+
+function makeGuess() {
+  let dist = computeDistance();
+  markResultsMap(marker.getPosition(), panorama.getPosition());
 }
 
 console.log("setting timeout");
