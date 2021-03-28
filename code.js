@@ -106,4 +106,4 @@ function placeMarkerAndPanTo(latLng, map) {
 console.log("setting timeout");
 //setTimeout(()=> { setRandomStreetView().await }, 2000);
 
-setTimeout(()=> { markResultsMap(randomLatLng(), randomLatLng()) }, 2000);
+//setTimeout(()=> { markResultsMap(randomLatLng(), randomLatLng()) }, 2000);
