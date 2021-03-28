@@ -6,6 +6,46 @@ function randomLatLng() {
            lng: Math.random() * 280 - 125 }; // restrict latitude to between -125 and 155 to avoid pacific ocean
 }
 
+
+let guessMarker;
+let targetMarker;
+function markResultsMap(guess, target) {
+  let guessLatLng = new google.maps.LatLng(guess);
+  let targetLatLng = new google.maps.LatLng(target);
+
+  let middle = google.maps.geometry.spherical.interpolate(guessLatLng, targetLatLng, 0.5);
+  let dist = google.maps.geometry.spherical.computeDistanceBetween(guessLatLng, targetLatLng);
+  let zoom = Math.floor((1/dist) * 15500000);
+  console.log('zoom: ', zoom)
+
+  const map = new google.maps.Map(document.getElementById("street-view"), {
+    center: middle,
+    zoom: Math.floor((1/dist) * 30000000),
+  });
+
+  guessMarker = new google.maps.Marker({
+    position: guessLatLng,
+    map: map,
+    icon: "http://maps.google.com/mapfiles/ms/icons/red-dot.png"
+  });
+
+  targetMarker = new google.maps.Marker({
+    position: targetLatLng,
+    map: map,
+    icon: "http://maps.google.com/mapfiles/ms/icons/green-dot.png"
+  });
+
+  const path = new google.maps.Polyline({
+    path: [guessLatLng, targetLatLng],
+    geodesic: false,
+    strokeColor: "#000000",
+    strokeOpacity: 1.0,
+    strokeWeight: 2,
+    map: map
+  });
+
+}
+
 async function setRandomStreetView() {
   console.log("making req");
   let coords = randomLatLng();
@@ -64,4 +104,6 @@ function placeMarkerAndPanTo(latLng, map) {
 }
 
 console.log("setting timeout");
-setTimeout(()=> { setRandomStreetView().await }, 2000);
+//setTimeout(()=> { setRandomStreetView().await }, 2000);
+
+//setTimeout(()=> { markResultsMap(randomLatLng(), randomLatLng()) }, 2000);
