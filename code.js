@@ -1,3 +1,5 @@
+const DISTANCE_THRESHOLD = 6_000_000;
+
 var panorama;
 var latLng;
 
@@ -105,6 +107,13 @@ function computeDistance(){
 function makeGuess() {
   let dist = computeDistance();
   markResultsMap(marker.getPosition(), panorama.getPosition());
+  let progress = Math.max(DISTANCE_THRESHOLD - dist, 0);
+  console.log('dist', dist);
+  console.log('rat', progress/DISTANCE_THRESHOLD);
+  let ratio = progress/DISTANCE_THRESHOLD;
+  $("#progress-bar-container").css('display', "inline");
+  $("#progress-bar").attr('aria-valuenow', progress).css('width', ratio * 100 + "%");
+  $("#progress-text").text('You were ' + Math.ceil(dist/1000) + ' km away... Score: ' + Math.ceil(ratio * 100) + '%');
 }
 
 console.log("setting timeout");
