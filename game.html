@@ -3,15 +3,14 @@
 
 <head>
     <title>Street View Containers</title>
-    <script
-  src="https://code.jquery.com/jquery-3.6.0.min.js"
-  integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
-  crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
     <script src="code.js"></script>
     <!-- -- -->
@@ -32,7 +31,101 @@
             position: absolute;
             top: 0%;
             right: 0%;
-            z-index: 2
+            z-index: 2;
+            margin: 10px;
+            height: 230px;
+            width: 230px;
+            color: white;
+            transition: 0.2s;
+            opacity: 55%;
+        }
+
+        #map-container:hover {
+            opacity: 100%;
+            height: 300px;
+            width: 300px;
+        }
+
+        #guess-button {
+            margin-top: 10px;
+            height: 13%;
+            width: 100%;
+            color: white;
+            background-color: #cc7469;
+            opacity: 45%;
+            transition: 0.8s;
+            border-radius: 10px;
+        }
+
+        /* 
+        #guess-button:hover {
+            opacity: 100%;
+        } */
+
+        #map {
+            height: 83%;
+            width: 100%;
+        }
+
+        dfn {
+            border-bottom: dashed 1px rgba(0, 0, 0, 0.8);
+            padding: 0 0.4em;
+            cursor: help;
+            font-style: normal;
+            position: relative;
+
+        }
+
+        dfn::after {
+            content: attr(data-info);
+            display: inline;
+            position: absolute;
+            text-align: center;
+            top: 22px;
+            left: 0;
+            opacity: 0;
+            width: 230px;
+            font-size: 13px;
+            font-weight: 700;
+            line-height: 1.5em;
+            padding: 0.5em 0.8em;
+            background: rgba(0, 0, 0, 0.8);
+            color: #fff;
+            pointer-events: none;
+            /* This prevents the box from apearing when hovered. */
+            transition: opacity 250ms, top 250ms;
+        }
+
+        dfn::before {
+            content: '';
+            display: block;
+            position: absolute;
+            top: 12px;
+            left: 20px;
+            opacity: 0;
+            width: 0;
+            height: 0;
+            border: solid transparent 5px;
+            border-bottom-color: rgba(0, 0, 0, 0.8);
+            transition: opacity 250ms, top 250ms;
+        }
+
+        dfn:hover {
+            z-index: 2;
+        }
+
+        /* Keeps the info boxes on top of other elements */
+        dfn:hover::after,
+        dfn:hover::before {
+            opacity: 1;
+        }
+
+        dfn:hover::after {
+            top: 30px;
+        }
+
+        dfn:hover::before {
+            top: 20px;
         }
     </style>
 </head>
@@ -50,16 +143,20 @@
                     <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">[placeholder]</a>
+                    <a class="nav-link" href="#"><dfn
+                            data-info="Guess where the image is in the world! Try to use context clues (signs/letters, architecture, landscape).
+                            <br>You can make a guess using the map on the top right. Good luck!">Need Help? (hover me)</dfn></a>
                 </li>
             </ul>
         </div>
     </nav>
 
     <div id="street-view">
-        <div id="map-container" style="margin:10px; height:300px; width:300px">
-            <div id="map" style="height:250px; width:300px;"></div>
-            <div id="guess-button" style="margin-top:10px; height:40px; width:300px; color:white; background-color: #9df1a0;"> <a class="btn btn-default button" onclick="computeDistance()"> <b> GUESS </b> </a> </div>
+        <div id="map-container">
+            <div id="map"></div>
+            <div id="guess-button"> <a class="btn btn-default button" onclick="computeDistance()"> <b
+                        style="color:white;"> MAKE GUESS </b> </a>
+            </div>
         </div>
     </div>
 

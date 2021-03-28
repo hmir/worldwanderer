@@ -6,7 +6,6 @@ function randomLatLng() {
            lng: Math.random() * 280 - 125 }; // restrict latitude to between -125 and 155 to avoid pacific ocean
 }
 
-
 let guessMarker;
 let targetMarker;
 function markResultsMap(guess, target) {
@@ -98,6 +97,7 @@ function placeMarkerAndPanTo(latLng, map) {
       map: map,
     });
     map.panTo(latLng);
+    $("#guess-button").animate({'opacity': 1}, 300)
   }
 }
 
