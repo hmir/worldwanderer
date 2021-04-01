@@ -2,17 +2,17 @@
 <html>
 
 <head>
-    <meta charset='utf-8' />
+    <meta charset="utf-8" />
     <title></title>
-    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
-    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v2.2.0/mapbox-gl.js'></script>
-    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v2.2.0/mapbox-gl.css' rel='stylesheet' />
+    <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
+    <script src="https://api.tiles.mapbox.com/mapbox-gl-js/v2.2.0/mapbox-gl.js"></script>
+    <link href="https://api.tiles.mapbox.com/mapbox-gl-js/v2.2.0/mapbox-gl.css" rel="stylesheet" />
 
     <link rel="stylesheet" href="css/home.css">
 </head>
 
 <body>
-    <div id='map'></div>
+    <div id="map"></div>
     <div id="instructions">
         <div class="container">
             <div class="name-block">
@@ -20,9 +20,6 @@
             </div>
             <h3 id="info">Practice your geeography skills by pinpointing where you are dropped in Google Maps!</h3>
             <div id="play-button-container">
-                <script
-                    src="https://maps.googleapis.com/maps/api/js?v=beta&key=AIzaSyAauCvhdFb61hHGmcOSnzlyHMi5W73__NI&callback=initMap">
-                </script>
                 <a class="btn btn-default button" id="play-button" href="game.html">Play Here</a>
             </div>
         </div>
@@ -30,10 +27,10 @@
 
     <script>
         mapboxgl.accessToken =
-            'pk.eyJ1IjoiaGFydW5mIiwiYSI6ImNrbXN2Nm1kaTBsanMyd3BncjFmMzk1ZDMifQ._9Pr7FVdcS7PR-EWQLnGGA';
+            "pk.eyJ1IjoiaGFydW5mIiwiYSI6ImNrbXN2Nm1kaTBsanMyd3BncjFmMzk1ZDMifQ._9Pr7FVdcS7PR-EWQLnGGA";
         var map = new mapboxgl.Map({
-            container: 'map',
-            style: 'mapbox://styles/mapbox/streets-v10',
+            container: "map",
+            style: "mapbox://styles/mapbox/streets-v10",
             center: [-122.662323, 45.523751], // starting position
             zoom: 12
         });
@@ -58,50 +55,50 @@
             // an arbitrary start will always be the same
             // only the end or destination will change
             var start = [-122.662323, 45.523751];
-            var url = 'https://api.mapbox.com/directions/v5/mapbox/cycling/' + start[0] + ',' + start[1] + ';' + end[
-                0] + ',' + end[1] + '?steps=true&geometries=geojson&access_token=' + mapboxgl.accessToken;
+            var url = "https://api.mapbox.com/directions/v5/mapbox/cycling/" + start[0] + "," + start[1] + ";" + end[
+                0] + "," + end[1] + "?steps=true&geometries=geojson&access_token=" + mapboxgl.accessToken;
 
             // make an XHR request https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest
             var req = new XMLHttpRequest();
-            req.open('GET', url, true);
+            req.open("GET", url, true);
             req.onload = function () {
                 var json = JSON.parse(req.response);
                 var data = json.routes[0];
                 var route = data.geometry.coordinates;
                 var geojson = {
-                    type: 'Feature',
+                    type: "Feature",
                     properties: {},
                     geometry: {
-                        type: 'LineString',
+                        type: "LineString",
                         coordinates: route
                     }
                 };
                 // if the route already exists on the map, reset it using setData
-                if (map.getSource('route')) {
-                    map.getSource('route').setData(geojson);
+                if (map.getSource("route")) {
+                    map.getSource("route").setData(geojson);
                 } else { // otherwise, make a new request
                     map.addLayer({
-                        id: 'route',
-                        type: 'line',
+                        id: "route",
+                        type: "line",
                         source: {
-                            type: 'geojson',
+                            type: "geojson",
                             data: {
-                                type: 'Feature',
+                                type: "Feature",
                                 properties: {},
                                 geometry: {
-                                    type: 'LineString',
+                                    type: "LineString",
                                     coordinates: geojson
                                 }
                             }
                         },
                         layout: {
-                            'line-join': 'round',
-                            'line-cap': 'round'
+                            "line-join": "round",
+                            "line-cap": "round"
                         },
                         paint: {
-                            'line-color': '#3887be',
-                            'line-width': 5,
-                            'line-opacity': 0.75
+                            "line-color": "#3887be",
+                            "line-width": 5,
+                            "line-opacity": 0.75
                         }
                     });
                 }
@@ -110,75 +107,75 @@
             req.send();
         }
 
-        map.on('load', function () {
+        map.on("load", function () {
             // make an initial directions request that
             // starts and ends at the same location
             getRoute(start);
 
             // Add starting point to the map
             map.addLayer({
-                id: 'point',
-                type: 'circle',
+                id: "point",
+                type: "circle",
                 source: {
-                    type: 'geojson',
+                    type: "geojson",
                     data: {
-                        type: 'FeatureCollection',
+                        type: "FeatureCollection",
                         features: [{
-                            type: 'Feature',
+                            type: "Feature",
                             properties: {},
                             geometry: {
-                                type: 'Point',
+                                type: "Point",
                                 coordinates: start
                             }
                         }]
                     }
                 },
                 paint: {
-                    'circle-radius': 10,
-                    'circle-color': '#3887be'
+                    "circle-radius": 10,
+                    "circle-color": "#3887be"
                 }
             });
             // this is where the code from the next step will go
-            map.on('click', function (e) {
+            map.on("click", function (e) {
                 var coordsObj = e.lngLat;
-                canvas.style.cursor = '';
+                canvas.style.cursor = "";
                 var coords = Object.keys(coordsObj).map(function (key) {
                     return coordsObj[key];
                 });
                 var end = {
-                    type: 'FeatureCollection',
+                    type: "FeatureCollection",
                     features: [{
-                        type: 'Feature',
+                        type: "Feature",
                         properties: {},
                         geometry: {
-                            type: 'Point',
+                            type: "Point",
                             coordinates: coords
                         }
                     }]
                 };
-                if (map.getLayer('end')) {
-                    map.getSource('end').setData(end);
+                if (map.getLayer("end")) {
+                    map.getSource("end").setData(end);
                 } else {
                     map.addLayer({
-                        id: 'end',
-                        type: 'circle',
+                        id: "end",
+                        type: "circle",
                         source: {
-                            type: 'geojson',
+                            type: "geojson",
                             data: {
-                                type: 'FeatureCollection',
+                                type: "FeatureCollection",
                                 features: [{
-                                    type: 'Feature',
+                                    type: "Feature",
                                     properties: {},
                                     geometry: {
-                                        type: 'Point',
+                                        type: "Point",
                                         coordinates: coords
                                     }
                                 }]
                             }
                         },
                         paint: {
-                            'circle-radius': 10,
-                            'circle-color': '#f30'
+                            "circle-radius": 10,
+                            "circle-color": "#f30"
                         }
                     });
                 }
@@ -188,14 +185,14 @@
         });
 
         // get the sidebar and add the instructions
-        var instructions = document.getElementById('instructions');
+        var instructions = document.getElementById("instructions");
         var steps = data.legs[0].steps;
 
         var tripInstructions = [];
         for (var i = 0; i < steps.length; i++) {
-            tripInstructions.push('<br><li>' + steps[i].maneuver.instruction) + '</li>';
-            instructions.innerHTML = '<br><span class="duration">Trip duration: ' + Math.floor(data.duration / 60) +
-                ' min 🚴 </span>' + tripInstructions;
+            tripInstructions.push("<br><li>" + steps[i].maneuver.instruction) + "</li>";
+            instructions.innerHTML = "<br><span class='duration'>Trip duration: " + Math.floor(data.duration / 60) +
+                " min 🚴 </span>" + tripInstructions;
         }
     </script>
 </body>

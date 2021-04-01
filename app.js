@@ -19,7 +19,7 @@ function markResultsMap(guessLatLng, targetLatLng) {
 
   let zoom = Math.max(2, Math.min(Math.floor((1 / dist) * 10000000), 6));
 
-  const map = new google.maps.Map(document.getElementById('street-view'), {
+  const map = new google.maps.Map(document.getElementById("street-view"), {
     center: middle,
     zoom: zoom,
     disableDefaultUI: true,
@@ -28,19 +28,19 @@ function markResultsMap(guessLatLng, targetLatLng) {
   guessMarker = new google.maps.Marker({
     position: guessLatLng,
     map: map,
-    icon: 'https://maps.google.com/mapfiles/ms/icons/red-dot.png'
+    icon: "https://maps.google.com/mapfiles/ms/icons/red-dot.png"
   });
 
   targetMarker = new google.maps.Marker({
     position: targetLatLng,
     map: map,
-    icon: 'https://maps.google.com/mapfiles/ms/icons/green-dot.png'
+    icon: "https://maps.google.com/mapfiles/ms/icons/green-dot.png"
   });
 
   const path = new google.maps.Polyline({
     path: [guessLatLng, targetLatLng],
     geodesic: false,
-    strokeColor: '#000000',
+    strokeColor: "#000000",
     strokeOpacity: 1.0,
     strokeWeight: 2,
     map: map
@@ -53,9 +53,9 @@ async function setRandomStreetView(outdoor) {
 
   let req = {
     location: coords,
-    preference: 'nearest',
+    preference: "nearest",
     radius: 400000,
-    source: outdoor ? 'outdoor' : 'default'
+    source: outdoor ? "outdoor" : "default"
   };
 
   let sv = new google.maps.StreetViewService();
@@ -66,7 +66,7 @@ async function setRandomStreetView(outdoor) {
     let latLng = results.data.location.latLng;
 
     panorama = new google.maps.StreetViewPanorama(
-      document.getElementById('street-view'), {
+      document.getElementById("street-view"), {
         position: latLng,
         disableDefaultUI: true
       }
@@ -78,7 +78,7 @@ async function setRandomStreetView(outdoor) {
 }
 
 async function initialize() {
-  const map = new google.maps.Map(document.getElementById('map'), {
+  const map = new google.maps.Map(document.getElementById("map"), {
     center: {
       lat: 0,
       lng: 0
@@ -87,7 +87,7 @@ async function initialize() {
     disableDefaultUI: true,
   });
 
-  map.addListener('click', (e) => {
+  map.addListener("click", (e) => {
     placeMarkerAndPanTo(e.latLng, map);
   });
 
@@ -105,8 +105,8 @@ function placeMarkerAndPanTo(latLng, map) {
       map: map,
     });
     map.panTo(latLng);
-    $('#guess-button').animate({
-      'opacity': 1
+    $("#guess-button").animate({
+      "opacity": 1
     }, 300)
   }
 }
@@ -121,8 +121,8 @@ function makeGuess() {
   markResultsMap(marker.getPosition(), panorama.getPosition());
   let progress = Math.max(DISTANCE_THRESHOLD - dist, 0);
   let ratio = progress / DISTANCE_THRESHOLD;
-  $('#progress-bar-container').css('display', 'flex');
-  $('#progress-bar').attr('aria-valuenow', progress).css('width', Math.max(1, ratio * 100) + '%');
-  $('#progress-text').text('You were ' + Math.ceil(dist / 1000) + ' km away... Score: ' + Math.ceil(ratio * 100) + '%');
-  $('#play-again').text('Hit here to play again!');
+  $("#progress-bar-container").css("display", "flex");
+  $("#progress-bar").attr("aria-valuenow", progress).css("width", Math.max(1, ratio * 100) + "%");
+  $("#progress-text").text("You were " + Math.ceil(dist / 1000) + " km away... Score: " + Math.ceil(ratio * 100) + "%");
+  $("#play-again").text("Hit here to play again!");
 }
