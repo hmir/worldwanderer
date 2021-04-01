@@ -23,14 +23,16 @@
             <h3 id="info">Practice your geeography skills by pinpointing where you are dropped in Google Maps!</h3>
             <div id="play-button-container">
                 <script
-                    src="http://maps.googleapis.com/maps/api/js?v=beta&key=AIzaSyAauCvhdFb61hHGmcOSnzlyHMi5W73__NI&callback=initMap"></script>
+                    src="http://maps.googleapis.com/maps/api/js?v=beta&key=AIzaSyAauCvhdFb61hHGmcOSnzlyHMi5W73__NI&callback=initMap">
+                </script>
                 <a class="btn btn-default button" id="play-button" href="game.html">Play Here</a>
             </div>
         </div>
     </div>
 
     <script>
-        mapboxgl.accessToken = 'pk.eyJ1IjoiaGFydW5mIiwiYSI6ImNrbXN2Nm1kaTBsanMyd3BncjFmMzk1ZDMifQ._9Pr7FVdcS7PR-EWQLnGGA';
+        mapboxgl.accessToken =
+            'pk.eyJ1IjoiaGFydW5mIiwiYSI6ImNrbXN2Nm1kaTBsanMyd3BncjFmMzk1ZDMifQ._9Pr7FVdcS7PR-EWQLnGGA';
         var map = new mapboxgl.Map({
             container: 'map',
             style: 'mapbox://styles/mapbox/streets-v10',
@@ -38,7 +40,10 @@
             zoom: 12
         });
         // set the bounds of the map
-        var bounds = [[-123.069003, 45.395273], [-122.303707, 45.612333]];
+        var bounds = [
+            [-123.069003, 45.395273],
+            [-122.303707, 45.612333]
+        ];
         map.setMaxBounds(bounds);
 
         // initialize the map canvas to interact with later
@@ -55,7 +60,8 @@
             // an arbitrary start will always be the same
             // only the end or destination will change
             var start = [-122.662323, 45.523751];
-            var url = 'https://api.mapbox.com/directions/v5/mapbox/cycling/' + start[0] + ',' + start[1] + ';' + end[0] + ',' + end[1] + '?steps=true&geometries=geojson&access_token=' + mapboxgl.accessToken;
+            var url = 'https://api.mapbox.com/directions/v5/mapbox/cycling/' + start[0] + ',' + start[1] + ';' + end[
+                0] + ',' + end[1] + '?steps=true&geometries=geojson&access_token=' + mapboxgl.accessToken;
 
             // make an XHR request https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest
             var req = new XMLHttpRequest();
@@ -126,8 +132,7 @@
                                 type: 'Point',
                                 coordinates: start
                             }
-                        }
-                        ]
+                        }]
                     }
                 },
                 paint: {
@@ -151,8 +156,7 @@
                             type: 'Point',
                             coordinates: coords
                         }
-                    }
-                    ]
+                    }]
                 };
                 if (map.getLayer('end')) {
                     map.getSource('end').setData(end);
@@ -192,9 +196,9 @@
         var tripInstructions = [];
         for (var i = 0; i < steps.length; i++) {
             tripInstructions.push('<br><li>' + steps[i].maneuver.instruction) + '</li>';
-            instructions.innerHTML = '<br><span class="duration">Trip duration: ' + Math.floor(data.duration / 60) + ' min 🚴 </span>' + tripInstructions;
+            instructions.innerHTML = '<br><span class="duration">Trip duration: ' + Math.floor(data.duration / 60) +
+                ' min 🚴 </span>' + tripInstructions;
         }
-
     </script>
 </body>
 

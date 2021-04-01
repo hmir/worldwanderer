@@ -1,71 +1,71 @@
 body {
-  text-align: center;
-  background-color: #95e8a4;
-  margin: 0;
-  padding: 0;
+    text-align: center;
+    background-color: #95e8a4;
+    margin: 0;
+    padding: 0;
 }
 
 #name {
-  font-family: Tahoma, Geneva, sans-serif;
+    font-family: Tahoma, Geneva, sans-serif;
 }
 
 #info {
-  color: grey;
-  font-family: Tahoma, Geneva, sans-serif;
+    color: grey;
+    font-family: Tahoma, Geneva, sans-serif;
 }
 
 .button {
-  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 #play-button-container {
-  font-family: Tahoma, Geneva, sans-serif;
+    font-family: Tahoma, Geneva, sans-serif;
 }
 
 #play-button {
-  border-radius: 10px;
-  background-color: #4CAF50;
-  color: black;
-  font-size: 16px;
-  cursor: pointer;
-  margin: 4px 2px;
-  display: inline-block;
-  text-decoration: none;
-  padding: 16px 32px;
-  transition-duration: 0.4s;
-  border: 2px solid #4CAF50;
+    border-radius: 10px;
+    background-color: #4CAF50;
+    color: black;
+    font-size: 16px;
+    cursor: pointer;
+    margin: 4px 2px;
+    display: inline-block;
+    text-decoration: none;
+    padding: 16px 32px;
+    transition-duration: 0.4s;
+    border: 2px solid #4CAF50;
 }
 
 #play-button:hover {
-  background-color: #a0cea1;
-  color: white;
+    background-color: #a0cea1;
+    color: white;
 }
 
 #map {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  width: 100%;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 100%;
 }
 
 #instructions {
-  position: absolute;
-  margin: 20px;
-  width: 25%;
-  top: 0;
-  bottom: 20%;
-  padding: 20px;
-  background-color: rgba(255, 255, 255, 0.9);
-  overflow-y: scroll;
-  font-family: sans-serif;
-  font-size: 0.8em;
-  line-height: 2em;
+    position: absolute;
+    margin: 20px;
+    width: 25%;
+    top: 0;
+    bottom: 20%;
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.9);
+    overflow-y: scroll;
+    font-family: sans-serif;
+    font-size: 0.8em;
+    line-height: 2em;
 }
 
 .duration {
-  font-size: 2em;
+    font-size: 2em;
 }
 
 .mapboxgl-ctrl-logo {
-  display: none !important;
+    display: none !important;
 }

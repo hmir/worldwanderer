@@ -1,4 +1,4 @@
-const DISTANCE_THRESHOLD = 6_000_000;
+const DISTANCE_THRESHOLD = 6000000;
 
 var panorama;
 var latLng;
