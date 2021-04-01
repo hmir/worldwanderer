@@ -6,12 +6,13 @@ var latLng;
 function randomLatLng() {
   return {
     lat: Math.random() * 90 - 30, // restrict longitude to between -30 and 60 to avoid poles
-    lng: Math.random() * 280 - 125
-  }; // restrict latitude to between -125 and 155 to avoid pacific ocean
+    lng: Math.random() * 280 - 125 // restrict latitude to between -125 and 155 to avoid pacific ocean
+  };
 }
 
 let guessMarker;
 let targetMarker;
+
 function markResultsMap(guessLatLng, targetLatLng) {
   let middle = google.maps.geometry.spherical.interpolate(guessLatLng, targetLatLng, 0.5);
   let dist = google.maps.geometry.spherical.computeDistanceBetween(guessLatLng, targetLatLng);
@@ -47,10 +48,9 @@ function markResultsMap(guessLatLng, targetLatLng) {
 
 }
 
-let success = false;
 async function setRandomStreetView(outdoor) {
   let coords = randomLatLng();
-  
+
   let req = {
     location: coords,
     preference: 'nearest',
@@ -66,8 +66,7 @@ async function setRandomStreetView(outdoor) {
     let latLng = results.data.location.latLng;
 
     panorama = new google.maps.StreetViewPanorama(
-      document.getElementById("street-view"),
-      {
+      document.getElementById("street-view"), {
         position: latLng,
         disableDefaultUI: true
       }
@@ -80,7 +79,10 @@ async function setRandomStreetView(outdoor) {
 
 async function initialize() {
   const map = new google.maps.Map(document.getElementById("map"), {
-    center: { lat: 0, lng: 0 },
+    center: {
+      lat: 0,
+      lng: 0
+    },
     zoom: 2,
     disableDefaultUI: true,
   });
@@ -93,6 +95,7 @@ async function initialize() {
 }
 
 var marker;
+
 function placeMarkerAndPanTo(latLng, map) {
   if (marker) {
     marker.setPosition(latLng);
@@ -102,7 +105,9 @@ function placeMarkerAndPanTo(latLng, map) {
       map: map,
     });
     map.panTo(latLng);
-    $("#guess-button").animate({ 'opacity': 1 }, 300)
+    $("#guess-button").animate({
+      'opacity': 1
+    }, 300)
   }
 }
 
