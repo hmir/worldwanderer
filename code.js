@@ -28,13 +28,13 @@ function markResultsMap(guessLatLng, targetLatLng) {
   guessMarker = new google.maps.Marker({
     position: guessLatLng,
     map: map,
-    icon: "http://maps.google.com/mapfiles/ms/icons/red-dot.png"
+    icon: "https://maps.google.com/mapfiles/ms/icons/red-dot.png"
   });
 
   targetMarker = new google.maps.Marker({
     position: targetLatLng,
     map: map,
-    icon: "http://maps.google.com/mapfiles/ms/icons/green-dot.png"
+    icon: "https://maps.google.com/mapfiles/ms/icons/green-dot.png"
   });
 
   const path = new google.maps.Polyline({
