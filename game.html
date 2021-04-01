@@ -14,170 +14,11 @@
 
     <script src="code.js"></script>
 
-    <style type="text/css">
-        html,
-        body {
-            height: 100%;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-            width: 100%;
-        }
-
-        #navbar {
-            height: 70px;
-            width: 100%;
-        }
-
-        #content-container {
-            flex: 1;
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-        }
-
-        #map-parent-container {
-            display: flex;
-            flex-direction: row;
-            height: 100%;
-            flex: 1;
-        }
-
-        #street-view {
-            height: 100%;
-            flex: 1;
-        }
-
-        #map-container {
-            position: absolute;
-            top: 0%;
-            right: 0%;
-            z-index: 2;
-            margin: 10px;
-            height: 230px;
-            width: 230px;
-            color: white;
-            transition: 0.2s;
-            opacity: 55%;
-        }
-
-        #map-container:hover {
-            opacity: 100%;
-            height: 300px;
-            width: 300px;
-        }
-
-        #guess-button {
-            margin-top: 10px;
-            height: 13%;
-            width: 100%;
-            color: white;
-            background-color: #cc7469;
-            opacity: 45%;
-            transition: 0.8s;
-            border-radius: 10px;
-        }
-
-        /* 
-        #guess-button:hover {
-            opacity: 100%;
-        } */
-
-        #map {
-            height: 83%;
-            width: 100%;
-        }
-
-        dfn {
-            border-bottom: dashed 1px rgba(0, 0, 0, 0.8);
-            padding: 0 0.4em;
-            cursor: help;
-            font-style: normal;
-            position: relative;
-
-        }
-
-        dfn::after {
-            content: attr(data-info);
-            display: inline;
-            position: absolute;
-            text-align: center;
-            top: 22px;
-            left: 0;
-            opacity: 0;
-            width: 230px;
-            font-size: 13px;
-            font-weight: 700;
-            line-height: 1.5em;
-            padding: 0.5em 0.8em;
-            background: rgba(0, 0, 0, 0.8);
-            color: #fff;
-            pointer-events: none;
-            /* This prevents the box from apearing when hovered. */
-            transition: opacity 250ms, top 250ms;
-        }
-
-        dfn::before {
-            content: '';
-            display: block;
-            position: absolute;
-            top: 12px;
-            left: 20px;
-            opacity: 0;
-            width: 0;
-            height: 0;
-            border: solid transparent 5px;
-            border-bottom-color: rgba(0, 0, 0, 0.8);
-            transition: opacity 250ms, top 250ms;
-        }
-
-        dfn:hover {
-            z-index: 2;
-        }
-
-        /* Keeps the info boxes on top of other elements */
-        dfn:hover::after,
-        dfn:hover::before {
-            opacity: 1;
-        }
-
-        dfn:hover::after {
-            top: 30px;
-        }
-
-        dfn:hover::before {
-            top: 20px;
-        }
-
-        #progress-bar-container {
-            display: none;
-            bottom: 0%;
-            z-index: 3;
-            width: 100%;
-            text-align: center;
-            background: white;
-            height: 100px;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
-
-        #progress {
-            margin: 20px;
-            flex: 1;
-            text-align: center;
-        }
-
-        #play-again:hover {
-            color: #27dbca;
-        }
-
-    </style>
+    <link rel="stylesheet" href="css/game.css">
 </head>
 
 <body>
-    <nav id="navbar" class="navbar navbar-expand-lg navbar-dark" style="background-color: #4CAF50;">
+    <nav id="navbar" class="navbar navbar-expand-lg navbar-dark">
         <a class="navbar-brand" href="home.html">World Wanderer</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText"
             aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
@@ -206,19 +47,21 @@
             <div id="street-view">
                 <div id="map-container">
                     <div id="map"></div>
-                    <div id="guess-button"> <a class="btn btn-default button" onclick="makeGuess()"> <b
-                                style="color:white;"> MAKE GUESS </b> </a>
+                    <div id="guess-button"> 
+                        <a class="btn btn-default button" onclick="makeGuess()"> 
+                            <b> MAKE GUESS </b> 
+                        </a>
                     </div>
                 </div>
             </div>
         </div>
 
         <div id="progress-bar-container">
-            <div id="progress-text" style="text-align: center; width: 100%; height: 15px; margin-top:8px;"></div>
-            <div id="play-again" style="text-align: center; width: 100%; height: 15px; margin-top:8px; cursor: pointer; text-decoration:underline;" onclick="window.location.reload();"></div>
-            <div id="progress" class="progress" style="width: 80%; height: 50%">            
+            <div id="progress-text"></div>
+            <div id="play-again" onclick="window.location.reload();"></div>
+            <div id="progress" class="progress">            
                 <div id="progress-bar" class="progress-bar progress-bar-success progress-bar-striped" role="progressbar"
-                    aria-valuenow="40" aria-valuemin="0" aria-valuemax="6000000" style="width:40%">
+                    aria-valuenow="40" aria-valuemin="0" aria-valuemax="6000000">
                 </div>
             </div>
         </div>
