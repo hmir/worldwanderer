@@ -13,7 +13,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
     <script src="code.js"></script>
-    <!-- -- -->
+
     <style type="text/css">
         html,
         body {
@@ -42,16 +42,6 @@
             flex-direction: row;
             height: 100%;
             flex: 1;
-        }
-
-        #info {
-            min-width: 200px;
-            max-width: 250px;
-            height: 100%;
-            font-size: 14px;
-            background: #DCDCDC;
-            display: none;
-            padding: 5px;
         }
 
         #street-view {
@@ -208,17 +198,11 @@
                             data-info="Look for: languages/alphabets, architecture, road signs (with cities/streets), ad-boards, architecture, cultural clothing of people, landscape (flat or mountainous?)">Hints</dfn></a>
                 </li>
             </ul>
-            <span id="sust-challenge" class="navbar-text">
-                <a style="color:white; background-color: #9df1a0;" class="btn btn-default button" id="submitButton" onclick="(()=>{location.href = location.href + '?sustainability=true'})()">Do the Sustainability Challenge</a>
-            </span>
         </div>
     </nav>
 
     <div id="content-container">
         <div id="map-parent-container">
-            <div id="info">
-
-            </div>
             <div id="street-view">
                 <div id="map-container">
                     <div id="map"></div>
