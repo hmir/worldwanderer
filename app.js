@@ -19,7 +19,7 @@ function markResultsMap(guessLatLng, targetLatLng) {
 
   let zoom = Math.max(2, Math.min(Math.floor((1 / dist) * 10000000), 6));
 
-  const map = new google.maps.Map(document.getElementById("street-view"), {
+  const resultsMap = new google.maps.Map(document.getElementById("results-view"), {
     center: middle,
     zoom: zoom,
     disableDefaultUI: true,
@@ -27,25 +27,24 @@ function markResultsMap(guessLatLng, targetLatLng) {
 
   guessMarker = new google.maps.Marker({
     position: guessLatLng,
-    map: map,
+    map: resultsMap,
     icon: "https://maps.google.com/mapfiles/ms/icons/red-dot.png"
   });
 
   targetMarker = new google.maps.Marker({
     position: targetLatLng,
-    map: map,
+    map: resultsMap,
     icon: "https://maps.google.com/mapfiles/ms/icons/green-dot.png"
   });
 
-  const path = new google.maps.Polyline({
+  new google.maps.Polyline({
     path: [guessLatLng, targetLatLng],
     geodesic: false,
     strokeColor: "#000000",
     strokeOpacity: 1.0,
     strokeWeight: 2,
-    map: map
+    map: resultsMap
   });
-
 }
 
 async function setRandomStreetView(outdoor) {
@@ -66,7 +65,7 @@ async function setRandomStreetView(outdoor) {
     let latLng = results.data.location.latLng;
 
     panorama = new google.maps.StreetViewPanorama(
-      document.getElementById("street-view"), {
+      document.getElementById("pano-container"), {
         position: latLng,
         disableDefaultUI: true
       }
@@ -77,7 +76,15 @@ async function setRandomStreetView(outdoor) {
   }
 }
 
+var marker;
+let initializing = false;
 async function initialize() {
+  if (initializing) {
+    return;
+  }
+
+  initializing = true;
+  $("#loading-screen").css("display", "inherit");
   const map = new google.maps.Map(document.getElementById("map"), {
     center: {
       lat: 0,
@@ -87,14 +94,18 @@ async function initialize() {
     disableDefaultUI: true,
   });
 
+  marker = null;
   map.addListener("click", (e) => {
     placeMarkerAndPanTo(e.latLng, map);
   });
 
   while (await setRandomStreetView(true) == false);
+  $("#pano-container").css("display", "inherit");
+  $("#results-view").css("display", "none");
+  $("#progress-bar-container").css("display", "none");
+  $("#loading-screen").css("display", "none");
+  initializing = false;
 }
-
-var marker;
 
 function placeMarkerAndPanTo(latLng, map) {
   if (marker) {
@@ -121,6 +132,10 @@ function makeGuess() {
   markResultsMap(marker.getPosition(), panorama.getPosition());
   let progress = Math.max(DISTANCE_THRESHOLD - dist, 0);
   let ratio = progress / DISTANCE_THRESHOLD;
+
+  $("#pano-container").css("display", "none");
+  $("#results-view").css("display", "inherit");
+
   $("#progress-bar-container").css("display", "flex");
   $("#progress-bar").attr("aria-valuenow", progress).css("width", Math.max(1, ratio * 100) + "%");
   $("#progress-text").text("You were " + Math.ceil(dist / 1000) + " km away... Score: " + Math.ceil(ratio * 100) + "%");
